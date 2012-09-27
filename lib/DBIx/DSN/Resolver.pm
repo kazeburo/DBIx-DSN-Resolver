@@ -6,7 +6,7 @@ use DBI;
 use Socket;
 use Carp;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub new {
     my $class = shift;
@@ -77,18 +77,28 @@ This module allows customize the resolver function.
 
 =head1 CUSTOMIZE RESOLVER
 
-use the resolver argument
+use the resolver argument.
+This sample code makes resolver cache with Cache::Memory::Simple.
 
-  use Net::DNS::Lite qw();
+  use Cache::Memory::Simple;
   use Socket;
-
-  $Net::DNS::Lite::CACHE = Cache::LRU->new(
-    size => 256,
+    
+  my $DNS_CACHE = Cache::Memory::Simple->new(
+      size => 256,
   );
-  $Net::DNS::Lite::CACHE_TTL = 5;
-  
-  my $resolver = DBIx::DSN::Resolver->new(
-      resolver => sub { Socket::inet_ntoa(Net::DNS::Lite::inet_aton(@_)) }
+      
+  my $r = DBIx::DSN::Resolver->new(
+     resolver => sub {
+         my $host = shift;
+         my $ipr = $DNS_CACHE->get($host);
+         my $ip = $ipr ? $$ipr : undef;
+         if ( !$ipr ) {
+              $ip = Socket::inet_aton($host);
+              $DNS_CACHE->set($host,\$ip,5);
+          }
+          return unless $ip;
+          Socket::inet_ntoa($ip);
+      }
   );
   $dsn = $resolver->resolv($dsn);
 
