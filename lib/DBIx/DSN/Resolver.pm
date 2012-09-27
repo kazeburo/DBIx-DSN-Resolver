@@ -6,13 +6,17 @@ use DBI;
 use Socket;
 use Carp;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
     my $class = shift;
     my %args = @_ == 1 ? %{$_[0]} : @_;
     bless {
-        resolver => sub { Socket::inet_ntoa(Socket::inet_aton($_[0])) },
+        resolver => sub { 
+            my $ipaddr = Socket::inet_aton($_[0]);
+            return unless $ipaddr;
+            Socket::inet_ntoa($ipaddr);
+        },
         %args,
     }, $class;
 }

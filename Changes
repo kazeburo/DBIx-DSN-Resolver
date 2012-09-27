@@ -1,4 +1,7 @@
 Revision history for Perl extension DBIx::DSN::Resolver
 
+0.02    Thu Sep 27 22:48:28 2012
+        - fixed warning "Use of uninitialized value in subroutine entry lib/DBIx/DSN/Resolver.pm line 15"
+
 0.01    Thu Sep 27 12:36:54 2012
         - original version
