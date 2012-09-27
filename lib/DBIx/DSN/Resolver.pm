@@ -53,7 +53,7 @@ __END__
 
 =head1 NAME
 
-DBIx::DSN::Resolver - Resolv hostname within dsn string
+DBIx::DSN::Resolver - Resolve hostname within dsn string
 
 =head1 SYNOPSIS
 
@@ -68,7 +68,7 @@ DBIx::DSN::Resolver - Resolv hostname within dsn string
 
 =head1 DESCRIPTION
 
-DBIx::DSN::Resolver parses dsn string and resolv hostname within dsn.
+DBIx::DSN::Resolver parses dsn string and resolves hostname within dsn.
 This module allows customize the resolver function.
 
 =head1 CUSTOMIZE RESOLVER
