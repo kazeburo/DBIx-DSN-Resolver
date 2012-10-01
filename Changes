@@ -1,5 +1,8 @@
 Revision history for Perl extension DBIx::DSN::Resolver
 
+0.05    Mon Oct 1 16:37:27 2012
+        - more fixed test
+
 0.04    Mon Oct 1 12:27:13 2012
         - fixed test and added doc about Solaris cannot resolved hostname without "-lresolv" configure
 
