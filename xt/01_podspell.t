@@ -12,3 +12,4 @@ DBIx::DSN::Resolver
 resolv
 dsn
 hostname
+solaris

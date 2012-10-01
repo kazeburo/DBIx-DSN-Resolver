@@ -110,7 +110,10 @@ Default:
 
 Masahiro Nagano E<lt>kazeburo {at} gmail.comE<gt>
 
-=head1 SEE ALSO
+=head1 NOTES
+
+DBIx::DSN::Resolver uses Socket::inet_aton for hostname resolution. 
+If you use Solaris and fail hostname resolution, please recompile Socket with "LIBS=-lresolve"
 
 =head1 LICENSE
 
