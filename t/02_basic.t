@@ -3,7 +3,7 @@ use Test::More;
 use Socket;
 use DBIx::DSN::Resolver;
 
-my $CAN_INET = system($^X,'-MSocket','-e','Socket::inet_aton("google.com");exit(0)');
+my $CAN_INET = system($^X,'-MSocket','-e','my $r = Socket::inet_aton("google.com");exit($r ? 0 : 1)');
 if ( $CAN_INET != 0 && $^O eq 'solaris') {
     warn 'DBIx::DSN::Resolver uses Socket::inet_aton for hostname resolution, please recompile Socket with "LIBS=-lresolve"'
 }
