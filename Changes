@@ -1,5 +1,8 @@
 Revision history for Perl extension DBIx::DSN::Resolver
 
+0.06    Mon Oct 1 22:43:50 2012
+        - more fixed test, check noneexistent entry
+
 0.05    Mon Oct 1 16:37:27 2012
         - more fixed test
 
