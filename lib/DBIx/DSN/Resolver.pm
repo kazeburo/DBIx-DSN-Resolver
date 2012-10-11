@@ -6,7 +6,7 @@ use DBI;
 use Socket;
 use Carp;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub new {
     my $class = shift;
@@ -83,9 +83,7 @@ This sample code makes resolver cache with Cache::Memory::Simple.
   use Cache::Memory::Simple;
   use Socket;
     
-  my $DNS_CACHE = Cache::Memory::Simple->new(
-      size => 256,
-  );
+  my $DNS_CACHE = Cache::Memory::Simple->new();
       
   my $r = DBIx::DSN::Resolver->new(
      resolver => sub {
@@ -105,6 +103,8 @@ This sample code makes resolver cache with Cache::Memory::Simple.
 Default:
 
   resolver => sub { Socket::inet_ntoa(Socket::inet_aton(@_)) }
+
+Also L<DBIx::DSN::Resolver::Cached> is useful for cache resolver response.
 
 =head1 AUTHOR
 
