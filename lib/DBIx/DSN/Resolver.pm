@@ -37,14 +37,21 @@ sub resolv {
         $driver_hash{$k} = $v;
         push @driver_hash_keys, $k;
     }
-    my $host = $driver_hash{host};
+    my $host_key = exists $driver_hash{hostname} ? 'hostname' : 'host';
+    my $host = $driver_hash{$host_key};
     return $dsn unless $host;
+
+    my $port = '';
+    if ( $host =~ m!:(\d+)$! ) {
+        $port = ':'.$1;
+        $host =~ s!:(\d+)$!!;
+    }
 
     my $ipaddr = $self->{resolver}->($host)
         or croak "Can't resolv host name: $host, $!";
-    $driver_hash{host} = $ipaddr;
+    $driver_hash{$host_key} = $ipaddr . $port;
     
-    $driver_dsn = join ';', map { $_.'='.$driver_hash{$_} } @driver_hash_keys;
+    $driver_dsn = join ';', map { length $driver_hash{$_} ? $_.'='.$driver_hash{$_} : $_ } @driver_hash_keys;
     $attr_string = defined $attr_string
         ? '('.$attr_string.')'
         : '';
